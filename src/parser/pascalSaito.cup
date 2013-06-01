@@ -1,0 +1,106 @@
+package parser;
+import java_cup.runtime.*;
+
+parser code {:
+    public void syntax_error(Symbol cur_token) {
+        report_error("Syntax error at line " + (cur_token.left+1) +
+            ", column " + cur_token.right, null);
+    }
+
+   
+
+:}
+
+terminal AND;
+terminal ARRAY;
+terminal BEGIN;
+terminal ELSE;
+terminal END;
+terminal IF;
+terminal OF;
+terminal OR;
+terminal PROGRAM; 
+terminal PROCEDURE;}
+terminal THEN;
+terminal TYPE;
+terminal VAR;
+terminal BOOLEAN;
+terminal BYTE;
+terminal CASE;
+terminal CHAR;
+terminal CONST;
+terminal DIV;
+terminal DO;
+terminal DOWNTO;
+terminal FALSE;
+terminal FILE;
+terminal FOR;
+terminal FORWARD;
+terminal FUNCTION;
+terminal GOTO;
+terminal IN;
+terminal INLINE;
+terminal INT;
+terminal LABEL;
+terminal LONGINT;
+terminal MOD;
+terminal NIL;
+terminal NOT;
+terminal PACKED;
+terminal READ;
+terminal REAL;
+terminal RECORD;
+terminal REPEAT;
+terminal SET;
+terminal SHORTINT;
+terminal STRING;
+terminal TO;
+terminal TRUE;
+terminal UNTIL;
+terminal WHILE;
+terminal WRITE;
+terminal XOR;
+terminal OPERADOR_ARITMETICO_MULTIPLICACION;
+terminal OPERADOR_ARITMETICO_SUMA;
+terminal OPERADOR_ARITMETICO_RESTA;
+terminal OPERADOR_ARITMETICO_DIVISION;
+terminal OPERADOR_OTRO_PUNTO_Y_COMA;
+terminal OPERADOR_OTRO_COMA;
+terminal OPERADOR_PARENTESIS_ABRE;
+terminal OPERADOR_PARENTESIS_CIERRA;
+terminal OPERADOR_PARENTESIS_CUADRADO_ABRE;
+terminal OPERADOR_PARENTESIS_CUADRADO_CIERRA;
+terminal OPERADOR_ARITMETICO_IGUAL; 
+terminal OPERADOR_COMPARACION_Y_RELACION_MENOR;
+terminal OPERADOR_COMPARACION_Y_RELACION_MAYOR;
+terminal OPERADOR_COMPARACION_Y_RELACION_MENOR_IGUAL_EQ;
+terminal OPERADOR_COMPARACION_Y_RELACION_MAYOR_IGUAL;
+terminal OPERADOR_ARITMETICO_INCREMENTAR;
+terminal OPERADOR_ARITMETICO_DECREMENTAR;
+terminal OPERADOR_OTRO_DOS_PUNTOS;
+terminal OPERADOR_OTRO_ASSIGNMENT;
+terminal OPERADOR_MIEMBRO_PUNTERO;
+terminal OPERADOR_COMPARACION_DIFERENTE;
+terminal OPERADOR_ARITMETICO_INCREMENTAR_IGUAL;
+terminal OPERADOR_ARITMETICO_DECREMENTAR_IGUAL;
+terminal OPERADOR_ARITMETICO_MULTIPLICAR_IGUAL;
+terminal OPERADOR_ARITMETICO_DIVIDIR_IGUAL;
+terminal OPERADOR_ASIGNAR_DERECHA;
+terminal OPERADOR_ASIGNAR_IZQUIERDA;
+terminal OPERADOR_ASIGNAR_IZQUIERDA_IGUAL;
+terminal OPERADOR_ASIGNAR_DERECHA_IGUAL; 
+
+terminal IDENTIFICADOR;
+terminal NUMERO_FLOTANTE;
+terminal NUMERO_ENTERO;
+terminal CARACTER;
+
+terminal ERROR;
+terminal NUMERO_FLOTANTE_CIENTIFICO;
+
+
+non terminal picha;
+
+start with picha;
+
+picha ::= CHAR;

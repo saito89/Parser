@@ -1,0 +1,40 @@
+package parser;
+import java_cup.runtime.*; 
+import java.io.*;
+import java.util.*;
+
+action code{:
+     public void ImprimeValor(String str){
+        System.out.println("el valor del token"+str) ;
+     }
+:};
+parser code{:
+
+    public void syntax_error(Symbol st){
+       token t=(token)st.value;
+       report_error("Error Sintactico:"+ t.getValue(),null);
+    }
+
+    public static void cargar(String archivo) throws Exception{
+        new parser(new scanner(new FileInputStream(archivo))).parse();
+    }
+
+
+:};
+
+terminal PARENC,PARENA,IF,ASIGN,SUMA,MULTP,DIV;
+terminal Integer INT;
+terminal String ID;
+non terminal exp, op, val, return,else;
+start with exp;
+exp ::= PARENA IF PARENA ASIGN val val PARENC return PARENA else PARENC PARENC;
+op	::=	SUMA
+	|MULTP
+	|DIV;
+val	::=	ID
+	|INT;
+return	::= exp
+		|val;
+else	::=exp
+		|op val val
+		|val;
