@@ -108,6 +108,7 @@ non terminal Conj_Sent,NumeroExtra;
 non terminal Programa,Cabecera,Declaraciones,Declaracion_const,Constantes,Una_const,Constante,Signo_opc,Const_sin_signo,Declaracion_var,Variables,Una_var,Lista_id,Tipo,
 Sentencia_compuesta,Sentencia,Sentencia_asignacion,Expresion,Numero,Sentencia_if,Resto_if,Sentencia_while,Sentencia_repeat,Sentencia_for,
 ListaConstantesCase,SentenciaConstantesCase,Sentencia_case,Resto_case;
+non terminal ArithmeticOperators,RelationalOperators,BooleanOperators,Condicion;
 
 
 start with Programa;
@@ -150,15 +151,23 @@ Sentencia ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_
 
 Sentencia_asignacion ::= IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Expresion OPERADOR_OTRO_PUNTO_Y_COMA | error;
 
-Expresion ::= IDENTIFICADOR | NUMERO_ENTERO | NUMERO_FLOTANTE | CHAR;
+Expresion ::= IDENTIFICADOR | NUMERO_ENTERO | NUMERO_FLOTANTE | CHAR | NUMERO_FLOTANTE_CIENTIFICO;
 
 Numero ::= Signo_opc NumeroExtra;
 
 NumeroExtra ::= NUMERO_ENTERO | NUMERO_FLOTANTE | NUMERO_FLOTANTE_CIENTIFICO;
 
-Sentencia_if ::= IF Expresion THEN Sentencia Resto_if OPERADOR_OTRO_PUNTO_Y_COMA;
+ArithmeticOperators ::= OPERADOR_ARITMETICO_SUMA | OPERADOR_ARITMETICO_RESTA | OPERADOR_ARITMETICO_MULTIPLICACION | DIV | MOD;
 
-Resto_if ::= ELSE Sentencia;
+RelationalOperators ::= OPERADOR_ARITMETICO_IGUAL | OPERADOR_COMPARACION_DIFERENTE | OPERADOR_COMPARACION_Y_RELACION_MAYOR | OPERADOR_COMPARACION_Y_RELACION_MENOR | OPERADOR_COMPARACION_Y_RELACION_MAYOR_IGUAL | OPERADOR_COMPARACION_Y_RELACION_MENOR_IGUAL_EQ;
+
+BooleanOperators ::= AND | OR | NOT;
+
+Condicion ::= Expresion ArithmeticOperators Expresion | Expresion RelationalOperators Expresion | error;
+
+Sentencia_if ::= IF Condicion THEN Sentencia Resto_if;
+
+Resto_if ::= ELSE Sentencia | error;
 
 Sentencia_while ::= WHILE Expresion DO Sentencia OPERADOR_OTRO_PUNTO_Y_COMA;
 
