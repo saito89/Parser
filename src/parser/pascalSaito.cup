@@ -113,7 +113,7 @@ non terminal ArithmeticOperators,RelationalOperators,Condicion, TipoFuncion, Fun
 
 start with Programa;
 
-Programa ::= Cabecera Declaraciones Sentencia_compuesta;
+Programa ::= Cabecera Declaraciones TipoFuncion Sentencia_compuesta;
 
 Cabecera ::= PROGRAM IDENTIFICADOR;
 
