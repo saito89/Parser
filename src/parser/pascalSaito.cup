@@ -2,11 +2,17 @@ package parser;
 import java_cup.runtime.*;
 
 parser code {:
+
+
+
     public void syntax_error(Symbol cur_token) {
         report_error("Syntax error at line " + (cur_token.left+1) +
             ", column " + cur_token.right, null);
     }
-
+public static void main(String args[]) throws Exception
+    {
+	new parser(new Lexer(System.in)).parse();
+    } 
    
 
 :}
@@ -113,7 +119,7 @@ Cabecera ::= PROGRAM IDENTIFICADOR;
 
 Declaraciones ::= Declaracion_const Declaracion_var;
 
-Declaracion_const ::= CONST Constantes;
+Declaracion_const ::= CONST Constantes|error;
 
 Constantes ::= Una_const OPERADOR_OTRO_PUNTO_Y_COMA Constantes | Una_const OPERADOR_OTRO_PUNTO_Y_COMA;
 
@@ -125,24 +131,24 @@ Signo_opc ::= OPERADOR_ARITMETICO_SUMA | OPERADOR_ARITMETICO_RESTA |;
 
 Const_sin_signo ::= NUMERO_ENTERO | NUMERO_FLOTANTE | NUMERO_FLOTANTE_CIENTIFICO;
 
-Declaracion_var ::= VAR Variables;
+Declaracion_var ::= VAR Variables|error;
 
-Variables ::= Una_var OPERADOR_OTRO_PUNTO_Y_COMA Variables | Una_var;
+Variables ::= Una_var Variables | Una_var;
 
 Una_var ::= Lista_id OPERADOR_OTRO_DOS_PUNTOS Tipo OPERADOR_OTRO_PUNTO_Y_COMA;
 
-Lista_id ::= IDENTIFICADOR OPERADOR_OTRO_COMA Lista_id | IDENTIFICADOR OPERADOR_OTRO_COMA;
+Lista_id ::= IDENTIFICADOR OPERADOR_OTRO_COMA Lista_id | IDENTIFICADOR;
 
 Tipo ::= CHAR | LONGINT | REAL | SHORTINT | STRING | BOOLEAN | INT;
 
 
 Sentencia_compuesta ::= BEGIN Conj_Sent END;
 
-Conj_Sent ::= Sentencia OPERADOR_OTRO_PUNTO_Y_COMA Conj_Sent | Sentencia OPERADOR_OTRO_PUNTO_Y_COMA;
+Conj_Sent ::= Sentencia Conj_Sent | Sentencia;
 
 Sentencia ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case | Sentencia_compuesta;
 
-Sentencia_asignacion ::= IDENTIFICADOR OPERADOR_OTRO_DOS_PUNTOS OPERADOR_ARITMETICO_IGUAL Expresion;
+Sentencia_asignacion ::= IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Expresion OPERADOR_OTRO_PUNTO_Y_COMA | error;
 
 Expresion ::= IDENTIFICADOR | NUMERO_ENTERO | NUMERO_FLOTANTE | CHAR;
 
@@ -150,15 +156,15 @@ Numero ::= Signo_opc NumeroExtra;
 
 NumeroExtra ::= NUMERO_ENTERO | NUMERO_FLOTANTE | NUMERO_FLOTANTE_CIENTIFICO;
 
-Sentencia_if ::= IF Expresion THEN Sentencia Resto_if;
+Sentencia_if ::= IF Expresion THEN Sentencia Resto_if OPERADOR_OTRO_PUNTO_Y_COMA;
 
 Resto_if ::= ELSE Sentencia;
 
-Sentencia_while ::= WHILE Expresion DO Sentencia;
+Sentencia_while ::= WHILE Expresion DO Sentencia OPERADOR_OTRO_PUNTO_Y_COMA;
 
-Sentencia_repeat ::= REPEAT Conj_Sent UNTIL Expresion;
+Sentencia_repeat ::= REPEAT Conj_Sent UNTIL Expresion OPERADOR_OTRO_PUNTO_Y_COMA;
 
-Sentencia_for ::= FOR IDENTIFICADOR OPERADOR_OTRO_DOS_PUNTOS OPERADOR_ARITMETICO_IGUAL Numero TO Expresion DO Sentencia;
+Sentencia_for ::= FOR IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Numero TO Expresion DO Sentencia OPERADOR_OTRO_PUNTO_Y_COMA;
 
 ListaConstantesCase ::= ListaConstantesCase Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase OPERADOR_OTRO_PUNTO_Y_COMA | Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase OPERADOR_OTRO_PUNTO_Y_COMA;
 
