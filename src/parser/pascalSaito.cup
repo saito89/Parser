@@ -147,9 +147,9 @@ Sentencia_compuesta ::= BEGIN Conj_Sent END;
 
 Conj_Sent ::= Sentencia Conj_Sent | Sentencia;
 
-Sentencia ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case | Sentencia_compuesta;
+Sentencia ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case | Sentencia_compuesta |error;
 
-Sentencia_asignacion ::= IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Expresion OPERADOR_OTRO_PUNTO_Y_COMA | error;
+Sentencia_asignacion ::= IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Expresion OPERADOR_OTRO_PUNTO_Y_COMA;
 
 Expresion ::= IDENTIFICADOR | NUMERO_ENTERO | NUMERO_FLOTANTE | CHAR | NUMERO_FLOTANTE_CIENTIFICO;
 
@@ -169,11 +169,11 @@ Sentencia_if ::= IF Condicion THEN Sentencia Resto_if;
 
 Resto_if ::= ELSE Sentencia | error;
 
-Sentencia_while ::= WHILE Expresion DO Sentencia OPERADOR_OTRO_PUNTO_Y_COMA;
+Sentencia_while ::= WHILE Condicion DO Sentencia_compuesta;
 
-Sentencia_repeat ::= REPEAT Conj_Sent UNTIL Expresion OPERADOR_OTRO_PUNTO_Y_COMA;
+Sentencia_repeat ::= REPEAT Conj_Sent UNTIL Condicion;
 
-Sentencia_for ::= FOR IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Numero TO Expresion DO Sentencia OPERADOR_OTRO_PUNTO_Y_COMA;
+Sentencia_for ::= FOR IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Expresion TO Expresion DO Sentencia_compuesta OPERADOR_OTRO_PUNTO_Y_COMA;
 
 ListaConstantesCase ::= ListaConstantesCase Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase OPERADOR_OTRO_PUNTO_Y_COMA | Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase OPERADOR_OTRO_PUNTO_Y_COMA;
 
