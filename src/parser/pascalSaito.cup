@@ -163,11 +163,11 @@ RelationalOperators ::= OPERADOR_ARITMETICO_IGUAL | OPERADOR_COMPARACION_DIFEREN
 
 BooleanOperators ::= AND | OR | NOT;
 
-Condicion ::= Expresion ArithmeticOperators Expresion | Expresion RelationalOperators Expresion | error;
+Condicion ::= Expresion ArithmeticOperators Expresion | Expresion RelationalOperators Expresion;
 
-Sentencia_if ::= IF Condicion THEN Sentencia Resto_if;
+Sentencia_if ::= IF Condicion THEN  Resto_if;
 
-Resto_if ::= ELSE Sentencia | error;
+Resto_if ::= Sentencia ELSE Sentencia | Sentencia;
 
 Sentencia_while ::= WHILE Condicion DO Sentencia_compuesta;
 
