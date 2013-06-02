@@ -20,7 +20,7 @@ terminal IF;
 terminal OF;
 terminal OR;
 terminal PROGRAM; 
-terminal PROCEDURE;}
+terminal PROCEDURE;
 terminal THEN;
 terminal TYPE;
 terminal VAR;
@@ -98,9 +98,72 @@ terminal CARACTER;
 terminal ERROR;
 terminal NUMERO_FLOTANTE_CIENTIFICO;
 
+non terminal Conj_Sent,NumeroExtra;
+non terminal Programa,Cabecera,Declaraciones,Declaracion_const,Constantes,Una_const,Constante,Signo_opc,Const_sin_signo,Declaracion_var,Variables,Una_var,Lista_id,Tipo,
+Sentencia_compuesta,Sentencia,Sentencia_asignacion,Expresion,Numero,Sentencia_if,Resto_if,Sentencia_while,Sentencia_repeat,Sentencia_for,
+ListaConstantesCase,SentenciaConstantesCase,Sentencia_case,Resto_case;
 
-non terminal picha;
 
-start with picha;
+start with Programa;
 
-picha ::= CHAR;
+Programa ::= Cabecera Declaraciones Sentencia_compuesta;
+
+Cabecera ::= PROGRAM IDENTIFICADOR;
+
+
+Declaraciones ::= Declaracion_const Declaracion_var;
+
+Declaracion_const ::= CONST Constantes;
+
+Constantes ::= Una_const OPERADOR_OTRO_PUNTO_Y_COMA Constantes | Una_const OPERADOR_OTRO_PUNTO_Y_COMA;
+
+Una_const ::= IDENTIFICADOR OPERADOR_ARITMETICO_IGUAL Constante;
+
+Constante ::= Signo_opc Const_sin_signo | CHAR;
+
+Signo_opc ::= OPERADOR_ARITMETICO_SUMA | OPERADOR_ARITMETICO_RESTA |;
+
+Const_sin_signo ::= NUMERO_ENTERO | NUMERO_FLOTANTE | NUMERO_FLOTANTE_CIENTIFICO;
+
+Declaracion_var ::= VAR Variables;
+
+Variables ::= Una_var OPERADOR_OTRO_PUNTO_Y_COMA Variables | Una_var;
+
+Una_var ::= Lista_id OPERADOR_OTRO_DOS_PUNTOS Tipo OPERADOR_OTRO_PUNTO_Y_COMA;
+
+Lista_id ::= IDENTIFICADOR OPERADOR_OTRO_COMA Lista_id | IDENTIFICADOR OPERADOR_OTRO_COMA;
+
+Tipo ::= CHAR | LONGINT | REAL | SHORTINT | STRING | BOOLEAN | INT;
+
+
+Sentencia_compuesta ::= BEGIN Conj_Sent END;
+
+Conj_Sent ::= Sentencia OPERADOR_OTRO_PUNTO_Y_COMA Conj_Sent | Sentencia OPERADOR_OTRO_PUNTO_Y_COMA;
+
+Sentencia ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case | Sentencia_compuesta;
+
+Sentencia_asignacion ::= IDENTIFICADOR OPERADOR_OTRO_DOS_PUNTOS OPERADOR_ARITMETICO_IGUAL Expresion;
+
+Expresion ::= IDENTIFICADOR | NUMERO_ENTERO | NUMERO_FLOTANTE | CHAR;
+
+Numero ::= Signo_opc NumeroExtra;
+
+NumeroExtra ::= NUMERO_ENTERO | NUMERO_FLOTANTE | NUMERO_FLOTANTE_CIENTIFICO;
+
+Sentencia_if ::= IF Expresion THEN Sentencia Resto_if;
+
+Resto_if ::= ELSE Sentencia;
+
+Sentencia_while ::= WHILE Expresion DO Sentencia;
+
+Sentencia_repeat ::= REPEAT Conj_Sent UNTIL Expresion;
+
+Sentencia_for ::= FOR IDENTIFICADOR OPERADOR_OTRO_DOS_PUNTOS OPERADOR_ARITMETICO_IGUAL Numero TO Expresion DO Sentencia;
+
+ListaConstantesCase ::= ListaConstantesCase Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase OPERADOR_OTRO_PUNTO_Y_COMA | Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase OPERADOR_OTRO_PUNTO_Y_COMA;
+
+SentenciaConstantesCase ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case;
+
+Sentencia_case ::= CASE Constante OF ListaConstantesCase Resto_case;
+
+Resto_case ::= ELSE SentenciaConstantesCase;
