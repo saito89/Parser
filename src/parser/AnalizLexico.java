@@ -141,7 +141,7 @@ public class AnalizLexico
 //        }
 //        generarLexer(areaTextoFlex);
         
-        generarLexer("C:\\Users\\saito89\\Documents\\NetBeansProjects\\Parser\\src\\parser\\pascalSaito.flex");
+        generarLexer("C:\\Users\\Walter\\Documents\\NetBeansProjects\\Parser\\src\\parser\\pascalSaito.flex");
         
 //        String stCup="A continuación elija el archivo .cup!";
 //        JOptionPane.showMessageDialog(null,stCup);
@@ -156,7 +156,7 @@ public class AnalizLexico
 //        System.out.println(areaTextoCup);
 //        generarParser(areaTextoCup);
         
-        generarParser("C:\\Users\\saito89\\Documents\\NetBeansProjects\\Parser\\src\\parser\\pascalSaito.cup");
+        generarParser("C:\\Users\\Walter\\Documents\\NetBeansProjects\\Parser\\src\\parser\\pascalSaito.cup");
         
         
         
