@@ -41,4 +41,24 @@ public class NodoError
     {
         return siguiente;
     }
+    
+    public void setlineaError(int error)
+    {
+        lineaError = error;
+    }
+    
+    public void setcolumnaError(int error)
+    {
+        columnaError = error;
+    }
+    
+    public void setlocalizacionError (String error)
+    {
+        localizacionError = error;
+    }
+    
+    public void setSiguiente(NodoError nodito)
+    {
+        siguiente = nodito;
+    }
 }
