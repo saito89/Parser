@@ -108,7 +108,7 @@ non terminal Conj_Sent;
 non terminal Programa,Cabecera,Declaraciones,Declaracion_const,Constantes,Una_const,Constante,Signo_opc,Const_sin_signo,Declaracion_var,Variables,Una_var,Lista_id,Tipo,
 Sentencia_compuesta,Sentencia,Sentencia_asignacion,Expresion,Sentencia_if,Resto_if,Sentencia_while,Sentencia_repeat,Sentencia_for,
 ListaConstantesCase,SentenciaConstantesCase,Sentencia_case,Resto_case;
-non terminal ArithmeticOperators,RelationalOperators,Condicion, ListaTipoFuncion, Funcion, Procedure, ListaParametros, FuncionRead, FuncionWrite;
+non terminal ArithmeticOperators,RelationalOperators,Condicion, ListaTipoFuncion, Funcion, Procedure, ListaParametros, FuncionRead, FuncionWrite,Lista_idExtra,VariablesExtra;
 
 
 start with Programa;
@@ -139,11 +139,15 @@ Const_sin_signo ::= NUMERO_ENTERO | NUMERO_FLOTANTE | NUMERO_FLOTANTE_CIENTIFICO
 
 Declaracion_var ::= VAR Variables|error;
 
-Variables ::= Una_var Variables | Una_var;
+Variables ::= Una_var VariablesExtra;
+
+VariablesExtra ::= Variables | ;
 
 Una_var ::= Lista_id OPERADOR_OTRO_DOS_PUNTOS Tipo OPERADOR_OTRO_PUNTO_Y_COMA;
 
-Lista_id ::= IDENTIFICADOR OPERADOR_OTRO_COMA Lista_id | IDENTIFICADOR;
+Lista_id ::= IDENTIFICADOR Lista_idExtra;
+
+Lista_idExtra ::= OPERADOR_OTRO_COMA Lista_id | ;
 
 Tipo ::= CHAR | LONGINT | REAL | SHORTINT | STRING | BOOLEAN | INT;
 
