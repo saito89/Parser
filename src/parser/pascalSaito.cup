@@ -123,8 +123,6 @@ FuncionRead ::= FUNCTION READ OPERADOR_PARENTESIS_ABRE ListaParametros OPERADOR_
 
 FuncionWrite ::= FUNCTION WRITE OPERADOR_PARENTESIS_ABRE Constantes OPERADOR_PARENTESIS_CIERRA | FUNCTION WRITE OPERADOR_PARENTESIS_ABRE Variables OPERADOR_PARENTESIS_CIERRA;
 
-
-
 Procedure ::= PROCEDURE IDENTIFICADOR OPERADOR_PARENTESIS_ABRE ListaParametros OPERADOR_PARENTESIS_CIERRA OPERADOR_OTRO_DOS_PUNTOS Tipo BEGIN Declaraciones Conj_Sent END;
 
 Declaraciones ::= Declaracion_const Declaracion_var;
@@ -188,7 +186,7 @@ Sentencia_case ::= CASE Constante OF ListaConstantesCase Resto_case;
 
 Resto_case ::= ELSE SentenciaConstantesCase;
 
-ListaTipoFuncion ::= ListaTipoFuncion Funcion | ListaTipoFuncion Procedure | Funcion | Procedure;
+ListaTipoFuncion ::= ListaTipoFuncion Funcion | ListaTipoFuncion Procedure | ListaTipoFuncion FuncionWrite | ListaTipoFuncion FuncionRead | Funcion | Procedure | FuncionRead | FuncionWrite;
 
 ListaParametros ::= ListaParametros Tipo IDENTIFICADOR OPERADOR_OTRO_COMA | Tipo IDENTIFICADOR; 
 
