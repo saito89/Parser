@@ -108,7 +108,7 @@ non terminal Conj_Sent;
 non terminal Programa,Cabecera,Declaraciones,Declaracion_const,Constantes,Una_const,Constante,Signo_opc,Const_sin_signo,Declaracion_var,Variables,Una_var,Lista_id,Tipo,
 Sentencia_compuesta,Sentencia,Sentencia_asignacion,Expresion,Sentencia_if,Resto_if,Sentencia_while,Sentencia_repeat,Sentencia_for,
 ListaConstantesCase,SentenciaConstantesCase,Sentencia_case,Resto_case;
-non terminal ArithmeticOperators,RelationalOperators,Condicion, ListaTipoFuncion, Funcion, Procedure, ListaParametros;
+non terminal ArithmeticOperators,RelationalOperators,Condicion, ListaTipoFuncion, Funcion, Procedure, ListaParametros, FinalFuncion;
 
 
 start with Programa;
@@ -117,7 +117,9 @@ Programa ::= Cabecera Declaraciones ListaTipoFuncion Sentencia_compuesta;
 
 Cabecera ::= PROGRAM IDENTIFICADOR;
 
-Funcion ::= FUNCTION IDENTIFICADOR OPERADOR_PARENTESIS_ABRE ListaParametros OPERADOR_PARENTESIS_CIERRA OPERADOR_OTRO_DOS_PUNTOS Tipo BEGIN Declaraciones Conj_Sent IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Constante END;
+Funcion ::= FUNCTION IDENTIFICADOR OPERADOR_PARENTESIS_ABRE ListaParametros OPERADOR_PARENTESIS_CIERRA OPERADOR_OTRO_DOS_PUNTOS Tipo BEGIN Declaraciones FinalFuncion END;
+
+FinalFuncion ::= Conj_Sent Sentencia_asignacion;
 
 Procedure ::= PROCEDURE IDENTIFICADOR OPERADOR_PARENTESIS_ABRE ListaParametros OPERADOR_PARENTESIS_CIERRA OPERADOR_OTRO_DOS_PUNTOS Tipo BEGIN Declaraciones Conj_Sent END;
 
