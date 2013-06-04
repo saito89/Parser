@@ -113,7 +113,7 @@ non terminal ArithmeticOperators,RelationalOperators,Condicion, ListaTipoFuncion
 
 start with Programa;
 
-Programa ::= Cabecera Declaraciones ListaTipoFuncion Sentencia_compuesta | Cabecera Sentencia_compuesta;
+Programa ::= Cabecera Declaraciones ListaTipoFuncion Sentencia_compuesta | Cabecera Sentencia_compuesta | Cabecera Declaraciones Sentencia_compuesta;
 
 Cabecera ::= PROGRAM IDENTIFICADOR;
 
@@ -124,6 +124,8 @@ FuncionWrite ::= FUNCTION WRITE OPERADOR_PARENTESIS_ABRE Constantes OPERADOR_PAR
 Funcion ::= PROCEDURE IDENTIFICADOR OPERADOR_PARENTESIS_ABRE ListaParametros OPERADOR_PARENTESIS_CIERRA OPERADOR_OTRO_DOS_PUNTOS Tipo BEGIN Declaraciones Conj_Sent END | FUNCTION IDENTIFICADOR OPERADOR_PARENTESIS_ABRE ListaParametros OPERADOR_PARENTESIS_CIERRA OPERADOR_OTRO_DOS_PUNTOS Tipo BEGIN Declaraciones Conj_Sent END;
 
 Declaraciones ::= Declaracion_const Declaracion_var;
+
+ListaTipoFuncion ::= ListaTipoFuncion Funcion | ListaTipoFuncion FuncionWrite | ListaTipoFuncion FuncionRead | Funcion | FuncionRead | FuncionWrite;
 
 Declaracion_const ::= CONST Constantes|error;
 
@@ -184,7 +186,7 @@ Sentencia_case ::= CASE Constante OF ListaConstantesCase Resto_case;
 
 Resto_case ::= ELSE SentenciaConstantesCase;
 
-ListaTipoFuncion ::= ListaTipoFuncion Funcion | ListaTipoFuncion FuncionWrite | ListaTipoFuncion FuncionRead | Funcion | FuncionRead | FuncionWrite;
+
 
 ListaParametros ::= ListaParametros Tipo IDENTIFICADOR OPERADOR_OTRO_COMA | Tipo IDENTIFICADOR; 
 
