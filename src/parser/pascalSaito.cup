@@ -115,7 +115,7 @@ start with Programa;
 
 Programa ::= Cabecera Declaraciones ListaTipoFuncion Sentencia_compuesta | Cabecera Sentencia_compuesta | Cabecera Declaraciones Sentencia_compuesta;
 
-Cabecera ::= PROGRAM IDENTIFICADOR;
+Cabecera ::= PROGRAM IDENTIFICADOR | error;
 
 FuncionRead ::= FUNCTION READ OPERADOR_PARENTESIS_ABRE ListaParametros OPERADOR_PARENTESIS_CIERRA | FUNCTION READ OPERADOR_PARENTESIS_ABRE OPERADOR_PARENTESIS_CIERRA;
 
@@ -127,19 +127,19 @@ Declaraciones ::= Declaracion_const Declaracion_var;
 
 ListaTipoFuncion ::= ListaTipoFuncion Funcion | ListaTipoFuncion FuncionWrite | ListaTipoFuncion FuncionRead | Funcion | FuncionRead | FuncionWrite;
 
-Declaracion_const ::= CONST Constantes|error;
+Declaracion_const ::= CONST Constantes | error;
 
 Constantes ::= Una_const OPERADOR_OTRO_PUNTO_Y_COMA Constantes | Una_const OPERADOR_OTRO_PUNTO_Y_COMA;
 
 Una_const ::= IDENTIFICADOR OPERADOR_ARITMETICO_IGUAL Constante;
 
-Constante ::= Signo_opc Const_sin_signo | CHAR;
+Constante ::= Signo_opc Const_sin_signo | CHAR | error;
 
 Signo_opc ::= OPERADOR_ARITMETICO_SUMA | OPERADOR_ARITMETICO_RESTA |;
 
 Const_sin_signo ::= NUMERO_ENTERO | NUMERO_FLOTANTE | NUMERO_FLOTANTE_CIENTIFICO;
 
-Declaracion_var ::= VAR Variables|error;
+Declaracion_var ::= VAR Variables | error;
 
 Variables ::= Una_var OPERADOR_OTRO_PUNTO_Y_COMA Variables | Una_var;
 
@@ -154,7 +154,7 @@ Sentencia_compuesta ::= BEGIN Conj_Sent END;
 
 Conj_Sent ::= Sentencia Conj_Sent | Sentencia;
 
-Sentencia ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case | Sentencia_compuesta |error;
+Sentencia ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case | Sentencia_compuesta | error;
 
 Sentencia_asignacion ::= IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Expresion OPERADOR_OTRO_PUNTO_Y_COMA;
 
@@ -178,9 +178,9 @@ Sentencia_repeat ::= REPEAT Conj_Sent UNTIL Condicion;
 
 Sentencia_for ::= FOR IDENTIFICADOR OPERADOR_OTRO_ASSIGNMENT Expresion TO Expresion DO Sentencia_compuesta OPERADOR_OTRO_PUNTO_Y_COMA;
 
-ListaConstantesCase ::= ListaConstantesCase Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase OPERADOR_OTRO_PUNTO_Y_COMA | Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase OPERADOR_OTRO_PUNTO_Y_COMA;
+ListaConstantesCase ::= ListaConstantesCase Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase | Constante OPERADOR_OTRO_DOS_PUNTOS SentenciaConstantesCase;
 
-SentenciaConstantesCase ::= Sentencia_asignacion | Sentencia_if | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case;
+SentenciaConstantesCase ::= Sentencia_asignacion | Sentencia_while | Sentencia_repeat | Sentencia_for | Sentencia_case;
 
 Sentencia_case ::= CASE Constante OF ListaConstantesCase Resto_case;
 
